@@ -3,7 +3,7 @@
 #include <vector>
 #include "table.h"
  
- int main()
+int main()
 {
 	std::vector<std::vector<int>> table{{1,2,3},
 		                            {1,2,3},
