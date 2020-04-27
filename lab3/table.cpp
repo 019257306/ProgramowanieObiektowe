@@ -1,50 +1,50 @@
 #include "table.h"
 
-void display(int** table, int rows, int columns) {
-	for(int i = 0; i < columns; ++i) {
-		for(int j = 0; j < rows; ++j) cout << table[i][j] << " ";
+void display(Table& table) {
+	for(int i = 0; i < table.columns; ++i) {
+		for(int j = 0; j < table.rows; ++j) cout << table.table[i][j] << " ";
 
 		cout << endl;
 	}
 }
 
-void changeData(int** table, int rows, int columns, int xPos , int yPos, int new_data) {
-		if (yPos > rows || xPos > columns)	cout << "Niepoprawna wartosc" << endl;
+void changeData(Table& table, int xPos , int yPos, int new_data) {
+		if (yPos > table.rows || xPos > table.columns)	cout << "Niepoprawna wartosc" << endl;
 
-		else table[xPos][yPos] = new_data;
+		else table.table[xPos][yPos] = new_data;
 }
 
-void changeSize(int**& table, int &rows, int &columns, int new_width, int new_height) {
+void changeSize(Table& table, int new_width, int new_height) {
 	int** column_ptr = new int*[new_height];
 	int* row_ptr;
 
-	for(int column = 0; column < columns; ++column) {
+	for(int column = 0; column < table.columns; ++column) {
 		cout << "Moving" << endl;
-		for (int row = 0; row < rows; ++row) {
+		for (int row = 0; row < table.rows; ++row) {
 			row_ptr = new int[new_width];
-			row_ptr[row] = table[column][row];
+			row_ptr[row] = table.table[column][row];
 		}
 
 		column_ptr[column] = row_ptr;
 	}
 
-	for (int column = columns; column < new_height; ++column) {
+	for (int column = table.columns; column < new_height; ++column) {
 		row_ptr = new int[new_width];
 
 		column_ptr[column] = row_ptr;
 	}
 
-	columns = new_height;
-	rows = new_width;
-	table = column_ptr;
+	table.columns = new_height;
+	table.rows = new_width;
+	table.table = column_ptr;
 }
 
-void write(int** table, int rows, int columns) {
+void write(Table& table) {
 	fstream outfile;
 	outfile.open(FILE, ios::out);
 
-	for(int i = 0; i < columns; ++i) {
-		for(int j = 0; j < rows; ++j) outfile << table[i][j] << " ";
+	for(int i = 0; i < table.columns; ++i) {
+		for(int j = 0; j < table.rows; ++j) outfile << table.table[i][j] << " ";
 
 		outfile << endl;
 	}
@@ -52,7 +52,7 @@ void write(int** table, int rows, int columns) {
 	outfile.close();
 }
 
-void read(int** table, int rows, int columns) {
+void read(Table& table) {
 	fstream infile;
 	infile.open(FILE, ios::in);
 

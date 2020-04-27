@@ -1,6 +1,6 @@
 #include "menu.h"
 
-void dataChangeMenu(int** table, int &rows, int &columns) {
+void dataChangeMenu(Table& table) {
 	  int xPos;
 	  int yPos;
 	  int new_data;
@@ -12,10 +12,10 @@ void dataChangeMenu(int** table, int &rows, int &columns) {
 	    cout << "new data" << endl;
 	    cin >> new_data;
 
-	    changeData(table, rows, columns, xPos, yPos, new_data);
+	    changeData(table, xPos, yPos, new_data);
 }
 
-void sizeChangeMenu(int**& table, int &rows, int &columns)
+void sizeChangeMenu(Table& table)
 {
 	int new_width;
 	int new_height;
@@ -25,7 +25,7 @@ void sizeChangeMenu(int**& table, int &rows, int &columns)
 	  cout << "Szerokosc:" << endl;
 	  cin >> new_height;
 
-	  changeSize(table, rows, columns, new_width, new_height);
+	  changeSize(table, new_width, new_height);
 }
 
 void mainMenu(void)
@@ -39,9 +39,7 @@ void mainMenu(void)
 }
 
 bool run(void) {
-	// TO DELETE
-	static int** table = nullptr;
-	static int rows = 0, columns = 0;
+	static Table table;
 	char val;
 
 	mainMenu();
@@ -51,23 +49,23 @@ bool run(void) {
 
 	switch(val) {
 		case '1':
-			sizeChangeMenu(table, rows, columns);
+			sizeChangeMenu(table);
 			break;
 
 		case '2':
-			dataChangeMenu(table, rows, columns);
+			dataChangeMenu(table);
 			break;
 
 		case '3':
-			display(table, rows, columns);
+			display(table);
 			break;
 
 		case '4':
-			write(table, rows, columns);
+			write(table);
 			break;
 
 		case '5':
-			read(table, rows, columns);
+			read(table);
 			break;
 
 		default:

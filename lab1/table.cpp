@@ -14,7 +14,7 @@ void changeData(int** table, int rows, int columns, int xPos , int yPos, int new
 		else table[xPos][yPos] = new_data;
 }
 
-void changeSize(int**& table, int &rows, int &columns, int new_width, int new_height) {
+void changeSize(int** table, int rows, int columns, int new_width, int new_height) {
 	int** column_ptr = new int*[new_height];
 	int* row_ptr;
 

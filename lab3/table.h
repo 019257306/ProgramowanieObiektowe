@@ -8,10 +8,16 @@
 
 using namespace std;
 
-void changeSize(int**&, int&, int&, int, int);
-void changeData(int**, int, int, int, int, int);
-void display(int**, int, int);
-void write(int**, int, int);
-void read(int**, int, int);
+struct Table {
+  int **table,
+        rows = 0,
+        columns = 0;
+};
+
+void changeSize(Table&, int, int);
+void changeData(Table&, int, int, int);
+void display(Table&);
+void write(Table&);
+void read(Table&);
 
 #endif

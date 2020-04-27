@@ -15,7 +15,7 @@ void dataChangeMenu(int** table, int &rows, int &columns) {
 	    changeData(table, rows, columns, xPos, yPos, new_data);
 }
 
-void sizeChangeMenu(int**& table, int &rows, int &columns)
+void sizeChangeMenu(Table& table_str)
 {
 	int new_width;
 	int new_height;

@@ -6,6 +6,7 @@ all : build/tablica.out build/main.out
 clean :
 	rm -rf build
 	mkdir build
+	rm file.txt
 
 build/table.o : table.cpp table.h
 	$(CXX) $(CXXFLAGS) table.cpp -o $@
