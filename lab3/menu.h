@@ -6,9 +6,9 @@
 
 using namespace std;
 
-bool run(void);
-void mainMenu(void);
-void sizeChangeMenu(Table&);
-void dataChangeMenu(Table&);
+bool run(void);                   // Start executing the main sequence
+void mainMenu(void);              // Print menu entries
+void sizeChangeMenu(Table&);      // Change size submenu
+void dataChangeMenu(Table&);      // Change data submenu
 
 #endif
