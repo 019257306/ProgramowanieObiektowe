@@ -21,6 +21,14 @@ public:
 	void display(void);                 // Print all the array
 	void write(void);                   // Save the array to the disk
 	void read(void);                    // Load the array from the disk
+	void findColumnMin(int);
+	void findColumnMax(int);
+	void findColumnMedium(int);
+	void findColumnSum(int);
+	void findRowMin(int);
+	void findRowMax(int);
+	void findRowMedium(int);
+	void findRowSum(int);
 };
 
 #endif

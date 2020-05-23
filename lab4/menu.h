@@ -12,13 +12,21 @@ private:
 
   void sizeChangeMenu(void);      // Change size submenu
   void dataChangeMenu(void);      // Change data submenu
+  void findColumnMinMenu(void);
+  void findColumnMaxMenu(void);
+  void findColumnMediumMenu(void);
+  void findColumnSumMenu(void);
+  void findRowMinMenu(void);
+  void findRowMaxMenu(void);
+  void findRowMediumMenu(void);
+  void findRowSumMenu(void);
 
 public:
   Menu(Array*);
 
-  char ask(void);					// Ask user
+  int ask(void);					// Ask user
   void print(void);					// Print menu entries
-  int execute(char);				// Start executing the main sequence
+  int execute(int);				// Start executing the main sequence
 };
 
 

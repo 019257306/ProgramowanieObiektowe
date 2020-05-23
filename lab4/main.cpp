@@ -4,8 +4,8 @@
 int main() {
 	Array* array = new Array();
 	Menu menu(array);
-	char choice;
-	
+	int choice;
+
 	do {
 		menu.print();
 		choice = menu.ask();
