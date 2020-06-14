@@ -20,11 +20,11 @@ private:
 public:
 	Array();
 
-	void changeSize(int, int = 0);          // Change size of the array
-	void changeData(int, int, Type);     // Change a particlar cell
-	void display(void);                 // Print all the array
-	void write(void);                   // Save the array to the disk
-	void read(void);                    // Load the array from the disk
+	void changeSize(int, int = 1);      // Change size of the array
+	void changeData(int, int, Type);    // Change a particlar cell
+	Cell<Type> get(int, int);                 // Get data from the array
+	int getRows(void);
+	int getColumns(void);
 };
 
 template <class Type>
@@ -37,15 +37,13 @@ Array<Type>::Array() {
 }
 
 template <class Type>
-void Array<Type>::display(void) {
-	// Print every cell
-	for(int i = 0; i < rows; ++i) {
-		for(int j = 0; j < columns; ++j)
-			cout << array[j][i] << " ";
+Cell<Type> Array<Type>::get(int column, int row) { return array[column][row]; }
 
-		cout << endl;
-	}
-}
+template <class Type>
+int Array<Type>::getRows(void) { return rows; }
+
+template <class Type>
+int Array<Type>::getColumns(void) { return columns; }
 
 template <class Type>
 void Array<Type>::changeData(int xPos , int yPos, Type new_data) {
@@ -93,34 +91,6 @@ void Array<Type>::changeSize(int new_width, int new_height) {
 		rows = new_width;
 		array = column_ptr;
 	}
-}
-
-template <class Type>
-void Array<Type>::write(void) {
-	// Open new file
-	fstream outfile;
-	outfile.open(FILE, ios::out);
-
-	// Print every cell
-	for(int i = 0; i < columns; ++i) {
-		for(int j = 0; j < rows; ++j) outfile << array[i][j] << " ";
-
-		outfile << endl;
-	}
-
-	// Close the file
-	outfile.close();
-}
-
-template <class Type>
-void Array<Type>::read(void) {
-	// Open new file
-	fstream infile;
-	infile.open(FILE, ios::in);
-
-	// Your code
-
-	infile.close();
 }
 
 #endif

@@ -15,6 +15,9 @@ private:
 
   void sizeChangeMenu(void);      // Change size submenu
   void dataChangeMenu(void);      // Change data submenu
+  void display(void);
+  void write(void);                   // Save the array to the disk
+  void read(void);                    // Load the array from the disk
 
 public:
   Menu();
@@ -33,6 +36,46 @@ Menu<FirstType, SecondType, ThirdType>::Menu() {
 }
 
 template <class FirstType, class SecondType, class ThirdType>
+void Menu<FirstType, SecondType, ThirdType>::display(void) {
+	std::cout << std::endl;
+
+	for (int row = 0; row < firstTypeArray->getRows(); ++row) {
+		std::cout << firstTypeArray->get(0, row).getData() << " ";
+		std::cout << secondTypeArray->get(0, row).getData() << " ";
+		std::cout << thirdTypeArray->get(0, row).getData();
+		std::cout << std::endl;
+	}
+}
+
+template <class FirstType, class SecondType, class ThirdType>
+void Menu<FirstType, SecondType, ThirdType>::read(void) {
+	// Open new file
+	fstream infile;
+	infile.open(FILE, ios::in);
+
+	// Your code
+
+	infile.close();
+}
+
+template <class FirstType, class SecondType, class ThirdType>
+void Menu<FirstType, SecondType, ThirdType>::write(void) {
+	// Open new file
+	fstream outfile;
+	outfile.open(FILE, ios::out);
+
+	for (int row = 0; row < firstTypeArray->getRows(); ++row) {
+		outfile << firstTypeArray->get(0, row).getData() << " ";
+		outfile << secondTypeArray->get(0, row).getData() << " ";
+		outfile << thirdTypeArray->get(0, row).getData();
+		outfile << std::endl;
+	}
+
+	// Close the file
+	outfile.close();
+}
+
+template <class FirstType, class SecondType, class ThirdType>
 void Menu<FirstType, SecondType, ThirdType>::dataChangeMenu(void) {
 	int xPos,				// Position in a row
 	  	yPos;				// Position in a collumn
@@ -41,7 +84,6 @@ void Menu<FirstType, SecondType, ThirdType>::dataChangeMenu(void) {
 	FirstType firstTypeData;
 	SecondType secondTypeData;
 	ThirdType thirdTypeData;
-
 
 	// Ask user about new values
 	cout << "Row number : ";
@@ -53,21 +95,21 @@ void Menu<FirstType, SecondType, ThirdType>::dataChangeMenu(void) {
 	switch (xPos) {
 		case 0:
 			cin >> firstTypeData;
-			firstTypeArray->changeData(xPos, yPos, firstTypeData);
+			firstTypeArray->changeData(0, yPos, firstTypeData);
 			break;
 
 		case 1:
 			cin >> secondTypeData;
-			secondTypeArray->changeData(xPos, yPos, secondTypeData);
+			secondTypeArray->changeData(0, yPos, secondTypeData);
 			break;
 
 		case 2:
 			cin >> thirdTypeData;
-			thirdTypeArray->changeData(xPos, yPos, thirdTypeData);
+			thirdTypeArray->changeData(0, yPos, thirdTypeData);
 			break;
 
 		default :
-			std::cout << "Re-enter a column number" << std::endl;
+			std::cout << "Re-enter a column number:" << std::endl;
 	}
 }
 
@@ -76,7 +118,7 @@ void Menu<FirstType, SecondType, ThirdType>::sizeChangeMenu(void) {
 	int new_width;			// New width
 
 	// Ask user about new values
-	cout << "New length : " << endl;
+	cout << "New length: ";
 	cin >> new_width;
 
 	// Update size
@@ -125,21 +167,15 @@ int Menu<FirstType, SecondType, ThirdType>::execute(int choice) {
 			break;
 
 		case 3:
-			firstTypeArray->display();
-			secondTypeArray->display();
-			thirdTypeArray->display();
+			display();
 			break;
 
 		case 4:
-			firstTypeArray->write();
-			secondTypeArray->write();
-			thirdTypeArray->write();
+			write();
 			break;
 
 		case 5:
-			firstTypeArray->read();
-			secondTypeArray->read();
-			thirdTypeArray->read();
+			read();
 			break;
 	}
 

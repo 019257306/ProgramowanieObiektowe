@@ -4,6 +4,8 @@ RM = rm
 RMFLAGS = -rf
 MKDIR = mkdir
 
+.PHONY: all
+
 all : build/main.out
 
 clean :

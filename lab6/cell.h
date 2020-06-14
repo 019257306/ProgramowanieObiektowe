@@ -20,7 +20,11 @@ template <class Type>
 Type Cell<Type>::getData(void) { return data; }
 
 template <class Type>
-void Cell<Type>::setData(Type value) { data = value; }
+void Cell<Type>::setData(Type value) {
+	std::cout << value << std::endl;
+	
+	data = value;
+}
 
 template <class Type>
 std::ostream& operator<<(std::ostream& os, const Cell<Type>& object) {
