@@ -27,7 +27,6 @@ public:
   int execute(int);					// Start executing the main sequence
 };
 
-
 template <class FirstType, class SecondType, class ThirdType>
 Menu<FirstType, SecondType, ThirdType>::Menu() {
 	firstTypeArray = new Array<FirstType>();
@@ -140,6 +139,9 @@ void Menu<FirstType, SecondType, ThirdType>::print(void) {
 	cout << endl;
 }
 
+/**
+ * @return - menu index choice
+ */
 template <class FirstType, class SecondType, class ThirdType>
 int Menu<FirstType, SecondType, ThirdType>::ask(void) {
 	int choice;								// Temporary variable to store user's choice
@@ -151,6 +153,10 @@ int Menu<FirstType, SecondType, ThirdType>::ask(void) {
 	return choice;
 }
 
+/**
+ * @param[int] choice - menu index
+ * @return - 0 if exit comment and 1 in other cases
+ */
 template <class FirstType, class SecondType, class ThirdType>
 int Menu<FirstType, SecondType, ThirdType>::execute(int choice) {
 	// Execute corresponding function

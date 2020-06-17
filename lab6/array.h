@@ -36,15 +36,31 @@ Array<Type>::Array() {
 	array[0] = new Cell<Type>();
 }
 
+/**
+ * @param[int] column - column index
+ * @param[int] row - row index
+ * @return - cell with such indexes
+ */
 template <class Type>
 Cell<Type> Array<Type>::get(int column, int row) { return array[column][row]; }
 
+/**
+ * @return - number of rows
+ */
 template <class Type>
 int Array<Type>::getRows(void) { return rows; }
 
+/**
+ * @return - number of columns
+ */
 template <class Type>
 int Array<Type>::getColumns(void) { return columns; }
 
+/**
+ * @param[int] xPos - column index
+ * @param[int] yPos - row index
+ * @param[Type] new_data - new data with variable type
+ */
 template <class Type>
 void Array<Type>::changeData(int xPos , int yPos, Type new_data) {
 		// Check if position is incorrect
@@ -53,6 +69,10 @@ void Array<Type>::changeData(int xPos , int yPos, Type new_data) {
 		else array[xPos][yPos].setData(new_data);
 }
 
+/**
+ * @param[int] new_width - new value of width
+ * @param[int] new_height - new value of height
+ */
 template <class Type>
 void Array<Type>::changeSize(int new_width, int new_height) {
 	Cell<Type>** column_ptr = new Cell<Type>*[new_height];		// New array

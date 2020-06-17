@@ -37,6 +37,11 @@ void Array<Type>::display(void) {
 	}
 }
 
+/**
+ * @param[int] xPos - column index
+ * @param[int] yPos - row index
+ * @param[Type] new_data - new data with variable type
+ */
 template <class Type>
 void Array<Type>::changeData(int xPos , int yPos, Type new_data) {
 		// Check if position is incorrect
@@ -45,6 +50,10 @@ void Array<Type>::changeData(int xPos , int yPos, Type new_data) {
 		else array[xPos][yPos].setData(new_data);
 }
 
+/**
+ * @param[int] new_width - new value of width
+ * @param[int] new_height - new value of height
+ */
 template <class Type>
 void Array<Type>::changeSize(int new_width, int new_height) {
 	Cell<Type>** column_ptr = new Cell<Type>*[new_height];		// New array
