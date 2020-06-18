@@ -28,12 +28,16 @@ void Array::changeSize(int new_width, int new_height) {
 	else {
 		// Move old data to the new location
 		for(int column = 0; column < columns; ++column) {
-			for (int row = 0; row < rows; ++row) {
-				row_ptr = new int[new_width];
-				row_ptr[row] = array[column][row];
-			}
+			if (column < new_height) {
+				for (int row = 0; row < rows; ++row) {
+					if (row < new_width) {
+						row_ptr = new int[new_width];
+						row_ptr[row] = array[column][row];
+					}
+				}
 
-			column_ptr[column] = row_ptr;
+				column_ptr[column] = row_ptr;
+			}
 
 			// Delete old array
 			delete[] array[column];
@@ -73,12 +77,45 @@ void Array::write(void) {
 }
 
 void Array::read(void) {
+	int rows,								// Rows amount in the array
+	columns,									// Columns amount in the array
+	pos = 0, 								// Delimiter position in the line read from the file
+	data;										// Data to write into the array
+	std::string line;						// Line read from the file
+	std::stringstream linestream;		// Stream that converts the line to data
+
 	// Open new file
 	fstream infile;
 	infile.open(FILE, ios::in);
 
-	// Your code
+	// Read size of a 2D array
+	infile >> rows >> columns;
 
+	// Resize the array
+	this->changeSize(rows, columns);
+
+	// Fill the array
+	for (int row = 0; row != rows; ++row) {
+		//
+		std::getline(infile, line);
+
+		for (int column = 0; column != columns; ++column) {
+			// Find delimiter position
+			pos = line.find(" ");
+
+			// Convert string to the needed type
+			linestream = std::stringstream(line.substr(0, pos));
+			linestream >> data;
+
+			// Write new data
+			this->changeData(column, row, data);
+
+			// Update the string
+			line.erase(0, pos + 1);
+		}
+	}
+
+	// Close the file
 	infile.close();
 }
 

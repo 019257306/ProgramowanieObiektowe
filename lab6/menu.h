@@ -2,6 +2,7 @@
 #define Menu_h
 
 #include <iostream>
+#include <sstream>
 #include "array.h"
 
 using namespace std;
@@ -49,12 +50,39 @@ void Menu<FirstType, SecondType, ThirdType>::display(void) {
 
 template <class FirstType, class SecondType, class ThirdType>
 void Menu<FirstType, SecondType, ThirdType>::read(void) {
+	FirstType firstTypeData;
+	SecondType secondTypeData;
+	ThirdType thirdTypeData;
+	std::string line;
+	int current_row = 0;
+
 	// Open new file
 	fstream infile;
 	infile.open(FILE, ios::in);
 
-	// Your code
+	// Read file line-by-line while not EOF
+	while(std::getline(infile, line)) {
+		// Parse a line
+		std::stringstream linestream(line);
+		linestream >> firstTypeData >> secondTypeData >> thirdTypeData;
 
+		//std::cout << firstTypeData << " " << secondTypeData << " " << thirdTypeData << std::endl;
+
+		// Resize all the arrays
+		firstTypeArray->changeSize(current_row + 1);
+		secondTypeArray->changeSize(current_row + 1);
+		thirdTypeArray->changeSize(current_row + 1);
+
+		// Write new data
+		firstTypeArray->changeData(0, current_row, firstTypeData);
+		secondTypeArray->changeData(0, current_row, secondTypeData);
+		thirdTypeArray->changeData(0, current_row, thirdTypeData);
+
+		//
+		++current_row;
+	}
+
+	// Close the file
 	infile.close();
 }
 
@@ -140,6 +168,10 @@ void Menu<FirstType, SecondType, ThirdType>::print(void) {
 	cout << endl;
 }
 
+
+/**
+ * @return - menu index choice
+ */
 template <class FirstType, class SecondType, class ThirdType>
 int Menu<FirstType, SecondType, ThirdType>::ask(void) {
 	int choice;								// Temporary variable to store user's choice
@@ -151,6 +183,11 @@ int Menu<FirstType, SecondType, ThirdType>::ask(void) {
 	return choice;
 }
 
+
+/**
+ * @param[int] choice - menu index
+ * @return - 0 if exit comment and 1 in other cases
+ */
 template <class FirstType, class SecondType, class ThirdType>
 int Menu<FirstType, SecondType, ThirdType>::execute(int choice) {
 	// Execute corresponding function

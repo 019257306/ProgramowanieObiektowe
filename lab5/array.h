@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include "cell.h"
 
 #define FILE "file.txt"
@@ -37,6 +38,12 @@ void Array<Type>::display(void) {
 	}
 }
 
+
+/**
+ * @param[int] xPos - column index
+ * @param[int] yPos - row index
+ * @param[Type] new_data - new data with variable type
+ */
 template <class Type>
 void Array<Type>::changeData(int xPos , int yPos, Type new_data) {
 		// Check if position is incorrect
@@ -44,6 +51,11 @@ void Array<Type>::changeData(int xPos , int yPos, Type new_data) {
 
 		else array[xPos][yPos].setData(new_data);
 }
+
+/**
+ * @param[int] new_width - new value of width
+ * @param[int] new_height - new value of height
+ */
 
 template <class Type>
 void Array<Type>::changeSize(int new_width, int new_height) {
@@ -57,12 +69,16 @@ void Array<Type>::changeSize(int new_width, int new_height) {
 	else {
 		// Move old data to the new location
 		for(int column = 0; column < columns; ++column) {
-			for (int row = 0; row < rows; ++row) {
-				row_ptr = new Cell<Type>[new_width];
-				row_ptr[row] = array[column][row];
-			}
+			if (column < new_height) {
+				for (int row = 0; row < rows; ++row) {
+					if (row < new_width) {
+						row_ptr = new Cell<Type>[new_width];
+						row_ptr[row] = array[column][row];
+					}
+				}
 
-			column_ptr[column] = row_ptr;
+				column_ptr[column] = row_ptr;
+			}
 
 			// Delete old array
 			delete[] array[column];
@@ -91,6 +107,8 @@ void Array<Type>::write(void) {
 	fstream outfile;
 	outfile.open(FILE, ios::out);
 
+	outfile << rows << " " << columns << std::endl;
+
 	// Print every cell
 	for(int i = 0; i < columns; ++i) {
 		for(int j = 0; j < rows; ++j) outfile << array[i][j] << " ";
@@ -104,12 +122,45 @@ void Array<Type>::write(void) {
 
 template <class Type>
 void Array<Type>::read(void) {
+	int rows,								// Rows amount in the array
+	columns,									// Columns amount in the array
+	pos = 0; 								// Delimiter position in the line read from the file
+	std::string line;						// Line read from the file
+	std::stringstream linestream;		// Stream that converts the line to data
+	Type data;										// Data to write into the array
+
 	// Open new file
 	fstream infile;
 	infile.open(FILE, ios::in);
 
-	// Your code
+	// Read size of a 2D array
+	infile >> rows >> columns;
 
+	// Resize the array
+	this->changeSize(rows, columns);
+
+	// Fill the array
+	for (int row = 0; row != rows; ++row) {
+		//
+		std::getline(infile, line);
+
+		for (int column = 0; column != columns; ++column) {
+			// Find delimiter position
+			pos = line.find(" ");
+
+			// Convert string to the needed type
+			linestream = std::stringstream(line.substr(0, pos));
+			linestream >> data;
+
+			// Write new data
+			this->changeData(column, row, data);
+
+			// Update the string
+			line.erase(0, pos + 1);
+		}
+	}
+
+	// Close the file
 	infile.close();
 }
 

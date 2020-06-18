@@ -19,13 +19,16 @@ void changeSize(int** table, int rows, int columns, int new_width, int new_heigh
 	int* row_ptr;
 
 	for(int column = 0; column < columns; ++column) {
-		cout << "Moving" << endl;
-		for (int row = 0; row < rows; ++row) {
-			row_ptr = new int[new_width];
-			row_ptr[row] = table[column][row];
-		}
+		if (column < new_height) {
+			for (int row = 0; row < rows; ++row) {
+				if (row < new_width) {
+					row_ptr = new int[new_width];
+					row_ptr[row] = table[column][row];
+				}
+			}
 
-		column_ptr[column] = row_ptr;
+			column_ptr[column] = row_ptr;
+		}
 	}
 
 	for (int column = columns; column < new_height; ++column) {
@@ -56,7 +59,6 @@ void read(int** table, int rows, int columns) {
 	fstream infile;
 	infile.open(FILE, ios::in);
 
-	// Your code
-
+	
 	infile.close();
 }

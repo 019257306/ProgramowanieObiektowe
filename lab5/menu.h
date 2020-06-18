@@ -72,6 +72,9 @@ void Menu<Type>::print(void) {
 	cout << endl;
 }
 
+/**
+ * @return - menu index choice
+ */
 template <class Type>
 int Menu<Type>::ask(void) {
 	int choice;								// Temporary variable to store user's choice
@@ -83,6 +86,10 @@ int Menu<Type>::ask(void) {
 	return choice;
 }
 
+/**
+ * @param[int] choice - menu index
+ * @return - 0 if exit comment and 1 in other cases
+ */
 template <class Type>
 int Menu<Type>::execute(int choice) {
 	// Execute corresponding function

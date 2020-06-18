@@ -24,9 +24,17 @@ private:
 public:
   Menu(Array*);
 
+/**
+   * @return - menu index choice
+   */
+
   int ask(void);					// Ask user
   void print(void);					// Print menu entries
-  int execute(int);				// Start executing the main sequence
+  /**
+   * @param[int] choice - menu index
+   * @return - 0 if exit comment and 1 in other cases
+   */
+int execute(int);				// Start executing the main sequence
 };
 
 
